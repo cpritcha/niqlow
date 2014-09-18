@@ -229,6 +229,11 @@ LineMax::Golden()	{
 **/
 NelderMead::NelderMead(O)	{
     Algorithm(O);
+	logfile = fopen("/home/cpritcha/out.log", "w");
+	if (!isfile(logfile)) {
+		println("failed to open file");
+		exit(0);
+	}
 	step = istep;
 	}
 	
@@ -329,8 +334,16 @@ NelderMead::Amoeba() 	{
      decl fdiff, vF = zeros(O.NvfuncTerms,N+1);
 	 n_func += O->funclist(nodeX,&vF);
 	 nodeV = sumc(vF)';	   // aggregate!!!
+	 println(logfile, "tolerance: ", tolerance);
+	 decl i = 0;
 	 do	{
 	 	Sort();
+		if (i > 10) {
+			fprintln(logfile, "plexsize", plexsize);
+			i = 0;
+		}
+		i++;
+
 		if (plexsize<tolerance) return TRUE;
 		Reflect(-alpha);
 		if (atry==hi) Reflect(gamma);

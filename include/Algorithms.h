@@ -102,7 +102,8 @@ struct NelderMead  : NonGradient {
     /** . @internal **/					mni,
     /** . @internal **/					nmni,
     /** . @internal **/					atry,
-	/** current step size to create simplex **/		step;
+	/** current step size to create simplex **/		step,
+																logfile;
 					
 		NelderMead(O);
 		SimplexSize();
